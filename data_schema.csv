@@ -1,0 +1,138 @@
+Time Series Clustering
+
+Time series clustering is to partition time series data into groups based on similarity or distance, so that time series in the same cluster are similar. For time series clustering with R, the first step is to work out an appropriate distance/similarity metric, and then, at the second step, use existing clustering techniques, such as k-means, hierarchical clustering, density-based clustering or subspace clustering, to find clustering structures.
+
+Dynamic Time Warping (DTW) finds optimal alignment between two time series, and DTW distance is used as a distance metric in the example below. 
+A data set of Synthetic Control Chart Time Series is used here, which contains 600 examples of control charts. Each control chart is a time series with 60 values. There are six classes: 1) 1-100 Normal, 2) 101-200 Cyclic, 3) 201-300 Increasing trend, 4)301-400 Decreasing trend, 5) 401-500 Upward shift, and 6) 501-600 Downward shift. The dataset is downloadable at UCI KDD Archive.
+
+Time Series Classification
+
+Time series classification is to build a classification model based on labelled time series and then use the model to predict the label of unlabelled time series. The way for time series classification with R is to extract and build features from time series data first, and then apply existing classification techniques, such as SVM, k-NN, neural networks, regression and decision trees, to the feature set.
+
+Discrete Wavelet Transform (DWT) provides a multi-resolution representation using wavelets and is used in the example below. Another popular feature extraction technique is Discrete Fourier Transform (DFT).
+
+
+1. 레이블된 알고리즘의 특성을 모델링 (학습)
+2. 레이블되지 않은 데이터를 레이블링 한다.(예측)
+
+
+1. 실시간 분석 
+	1. 실시간으로 나오는 데이터에서 feature를 뽑아내어 학습
+		Discrete Wavelet Transform (DWT)
+		Discrete Fourier Transform (DFT) -> fast Fourier transform, FFT(빨리 하는 알고리즘)
+
+2. 시작 결과 분석
+	1. 시작지 목적지를 등의 지리정보중에 가봤던 곳을 보고 그게 아니면 경고
+		rule based
+	2.  주행거리나 평균속도에 이상이 있음.. 
+
+
+
+데이터 종류 
+
+1. 실시간 주행정보 
+	1. 순간 속도
+	2. 도로 상태
+		1. 경사
+		2. 도로 type(도로, 도심도로, 국도)
+	3. GIS(지리정보), 고도, 날씨, 강우량
+	4. 추가정보
+
+2. 주행 요약정보
+	1. 주행거리
+	2. 주행시간
+	3. 평균속도
+	4. 출발/목적지 좌표 
+	5. 출발/목적지 근처 POI, 주소, 상호 
+	6. 추가정보 
+
+3. 전기차 정보
+	1. 전기차 충전지 주소
+	2. 충전기 수
+	3. 충전기의 충전 타입(완속/급속)
+
+
+*변동사항
+	1. 차량 90대에 대한 30번씩의 운전기록
+	2. GIS정보에서 개인정보를 제외한 상대적 위치를 제공
+	3. 
+
+
+1. 실시간 정보에서 얻을 수 있는 feature
+	1. 속도정보 
+		1. 순간가속도(혹은 속도변화)
+		2. 날씨에 따른 속도 분포
+		3. 시간대별(있다면) 운용 속도 분포 
+		4. 경사 등에 따른 운전 
+		5. 평소에 자주가는 길 자주 들어서는 길
+
+
+2. 요약 정보에서 얻을 수 있는 feature
+	2. 위치정보 
+		1. 자주가는 위치, 근처 건물
+		2. 도착지까지의 평균 속도 
+		3. 
+
+
+
+1. 그래서 보여줄 수 있는 것?
+	1-1. 이 데이터에서 부가적인 feature를 뽑아낼 수 있는가?(차원의 진화)
+		- Discrete Wavelet Transform (DWT)
+		- Discrete Fourier Transform (DFT) -> fast Fourier transform, FFT(빨리 하는 알고리즘)
+
+	1-2. 운전자의 운전 상태를 clustering할 수 있는가? 
+		- 부가적인 정보: 기어의 위치?
+		- hdp를 이용한 clustering
+
+	2-2. labeling된 데이터가 있었을 때 이게 사람마다 흔적이 다른가?
+		- 그래프? 
+		- DTW를 이용해 유사도를 판별(0에 가까울수록 유사하다)
+		- 
+
+	1-3. 그냥 차원수를 늘린다음 OCSVM?
+		- 다 true cass 인거지 뭐....
+		- 그냥 모든 feature normalization등 하고 
+		- 차원이 많다 싶으면 차원을 좀 줄이고
+		- classification 쭉 학습하고 ocsvm, 
+		- cross validataion 하고 
+		- testing 진행 하고
+		- ROC, AUC 커브 뽑고 
+		- 시나리오 4개 뽑아서 해보고 그 결과 알아보고(CLI, 또는 그래프)
+			- 열쇠 탈취해서 또는 시스템 침입으로 부정시동 후 주행
+			- 주인이 운영 도중 범죄자가 차량을 탈취하거나 주인을 납치 후 이동
+
+
+	1-4 feature 뽑아내기 
+		Longest Common Subsequence Measures 
+		- Discrete Wavelet Transform (DWT)
+		- Discrete Fourier Transform (DFT) -> fast Fourier transform, FFT(빨리 하는 알고리즘)
+
+
+		 다른 데이터 넣어서 레이블링 하는 거 테스트 
+		- 시나리오 2개 뽑아서 
+
+	2. 운전자를 그들이 남긴 운전 기록 time series로 구분할 수 있는가?
+
+	3. feature를 뽑아낼 수 있는가?
+
+	운전자의 종류 등 ? 목적지의 분포 ? 등등?
+	2. 
+
+
+	feature에 lable달아서 classification set, train / test -> 바로 svc,
+	pca로 떠보고, plot해보고, 
+
+	예상되는 문제점
+		1. 알고리즘 학습시간
+		2. 구분되지 않는 사람들 사이의 운전feature 들 -> 성능저하
+		3. 
+
+
+1. 가장 좋은 알고리즘 찾기(알고리즘별) top3
+2. cross val
+3. parameter tunning
+
+4. roc-auc커브 인쇄
+5. 시나리 만들기
+6. 
+
